@@ -16,8 +16,13 @@
 *******************************************************************
 //----------------------------------------------------------------*/
 
+using Domain.Models;
+using Extensions.Helper;
+using Extensions.ServiceConfigures.AppSettings;
 using IdentityServer4;
 using IdentityServer4.Models;
+using Microsoft.EntityFrameworkCore;
+using Repository.Base;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -26,6 +31,7 @@ namespace Extensions.ServiceConfigures.Authentication.IdentityServer4
 {
     public class IdentityserverConfig
     {
+
         public static IEnumerable<IdentityResource> GetIdentityResourceResources()
         {
             return new List<IdentityResource>
@@ -38,6 +44,7 @@ namespace Extensions.ServiceConfigures.Authentication.IdentityServer4
         // scopes define the API resources in your system
         public static IEnumerable<ApiResource> GetApiResources()
         {
+            Appsettings.app
             return new List<ApiResource>
            {
                new ApiResource("Api1", "My API1"),

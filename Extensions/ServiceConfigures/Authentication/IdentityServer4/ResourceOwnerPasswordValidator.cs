@@ -1,4 +1,6 @@
 ﻿using Domain.Models;
+using Extensions.Helper;
+using Extensions.ServiceConfigures.AppSettings;
 using IdentityDbContext;
 using IdentityModel;
 using IdentityServer4.Models;
@@ -27,7 +29,7 @@ namespace IdentityServer
 
         public async Task ValidateAsync(ResourceOwnerPasswordValidationContext context)
         {
-           var test= _repository.Get(1);
+            
             _unitOfWork.BeginTran();
             ServiceRegisterEntity serviceRegisterEntity = new ServiceRegisterEntity() {
                 ClientId = "client1",
