@@ -44,7 +44,6 @@ namespace Extensions.ServiceConfigures.Authentication.IdentityServer4
         // scopes define the API resources in your system
         public static IEnumerable<ApiResource> GetApiResources()
         {
-            Appsettings.app
             return new List<ApiResource>
            {
                new ApiResource("Api1", "My API1"),
