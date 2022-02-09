@@ -27,11 +27,11 @@ namespace Extensions.ServiceConfigures.AppSettings.Model
         /// <summary>
         /// 客户端Id
         /// </summary>
-        public string clientId { get; set; }
+        public string Clientid { get; set; }
 
         /// <summary>
         /// 授权类型
         /// </summary>
-        public string allowedGrantTypes { get; set; }
+        public string AllowedGrantTypes { get; set; }
     }
 }

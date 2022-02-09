@@ -34,10 +34,12 @@ namespace Extensions.ServiceConfigures.Authentication.IdentityServer4
     public class IdentityserverConfig
     {
         private static List<IndentityServerClient> indentityServerClients;
+        private static ApiResource[] apiResources;
 
         public IdentityserverConfig(IConfiguration configuration)
         {
             indentityServerClients = (List<IndentityServerClient>)configuration.GetSection("Client").Get(typeof(List<IndentityServerClient>));
+            apiResources = (ApiResource[])configuration.GetSection("ApiResource").Get(typeof(ApiResource[]));
         }
         public static IEnumerable<IdentityResource> GetIdentityResourceResources()
         {           
@@ -51,10 +53,6 @@ namespace Extensions.ServiceConfigures.Authentication.IdentityServer4
         // scopes define the API resources in your system
         public static IEnumerable<ApiResource> GetApiResources()
         {
-            List<ApiResource> apiResources = new List<ApiResource>();
-            indentityServerClients.ForEach(x => {
-                apiResources.Add(new ApiResource(x.clientId));
-            });
             return apiResources;
            // return new List<ApiResource>
            //{

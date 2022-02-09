@@ -48,7 +48,7 @@ namespace IdentityServer
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IHostApplicationLifetime applicationLifetime, IOptions<IndentityServerClient> options)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IHostApplicationLifetime applicationLifetime, EntityFrameWorkIdentityDbcontext dbcontext)
         {
             if (env.IsDevelopment())
             {
