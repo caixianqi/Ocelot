@@ -4,6 +4,8 @@ using Domain.Models;
 using Extensions.Middlewares;
 using Extensions.ServiceConfigures;
 using Extensions.ServiceConfigures.AppSettings;
+using Extensions.ServiceConfigures.AppSettings.Model;
+using Extensions.ServiceConfigures.Authentication.IdentityServer4;
 using Extensions.ServiceConfigures.AutofacConfig;
 using IdentityDbContext;
 using Microsoft.AspNetCore.Builder;
@@ -14,6 +16,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using Repository.Base;
 using Repository.UnitOfWork;
 using System;
@@ -37,6 +40,7 @@ namespace IdentityServer
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddSingleton(new IdentityserverConfig(Configuration));
             services.AddAuthentication_Ids4Setup();
             services.AddSingleton(new Appsettings(Configuration));
             services.AddDbContext<EntityFrameWorkIdentityDbcontext>(options => options.UseMySql(Configuration.GetConnectionString("Mysql"), new MySqlServerVersion(new Version(8, 0, 28))));
@@ -44,7 +48,7 @@ namespace IdentityServer
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IHostApplicationLifetime applicationLifetime)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IHostApplicationLifetime applicationLifetime, IOptions<IndentityServerClient> options)
         {
             if (env.IsDevelopment())
             {
