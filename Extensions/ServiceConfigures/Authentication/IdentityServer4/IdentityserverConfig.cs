@@ -19,9 +19,11 @@
 using Domain.Models;
 using Extensions.Helper;
 using Extensions.ServiceConfigures.AppSettings;
+using Extensions.ServiceConfigures.AppSettings.Model;
 using IdentityServer4;
 using IdentityServer4.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Repository.Base;
 using System;
 using System.Collections.Generic;
@@ -31,9 +33,14 @@ namespace Extensions.ServiceConfigures.Authentication.IdentityServer4
 {
     public class IdentityserverConfig
     {
+        private static List<IndentityServerClient> indentityServerClients;
 
-        public static IEnumerable<IdentityResource> GetIdentityResourceResources()
+        public IdentityserverConfig(IConfiguration configuration)
         {
+            indentityServerClients = (List<IndentityServerClient>)configuration.GetSection("Client").Get(typeof(List<IndentityServerClient>));
+        }
+        public static IEnumerable<IdentityResource> GetIdentityResourceResources()
+        {           
             return new List<IdentityResource>
            {
                new IdentityResources.OpenId(), //必须要添加，否则报无效的scope错误
@@ -44,15 +51,20 @@ namespace Extensions.ServiceConfigures.Authentication.IdentityServer4
         // scopes define the API resources in your system
         public static IEnumerable<ApiResource> GetApiResources()
         {
-            return new List<ApiResource>
-           {
-               new ApiResource("Api1", "My API1"),
-              new ApiResource("Api2", "My API2")
-           };
+            List<ApiResource> apiResources = new List<ApiResource>();
+            indentityServerClients.ForEach(x => {
+                apiResources.Add(new ApiResource(x.clientId));
+            });
+            return apiResources;
+           // return new List<ApiResource>
+           //{
+           //   new ApiResource("Api1", "My API1"),
+           //   new ApiResource("Api2", "My API2")
+           //};
         }
 
         public static IEnumerable<ApiScope> ApiScopes =>
-           new ApiScope[] { new ApiScope("Api1") };
+           new ApiScope[] { new ApiScope("Api1"),new ApiScope("Api2") };
 
         // clients want to access resources (aka scopes)
         public static IEnumerable<Client> GetClients()
