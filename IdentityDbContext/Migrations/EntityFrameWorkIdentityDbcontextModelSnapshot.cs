@@ -3,7 +3,6 @@ using System;
 using IdentityDbContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace IdentityDbContext.Migrations
@@ -15,9 +14,8 @@ namespace IdentityDbContext.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("Relational:MaxIdentifierLength", 128)
-                .HasAnnotation("ProductVersion", "5.0.13")
-                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                .HasAnnotation("Relational:MaxIdentifierLength", 64)
+                .HasAnnotation("ProductVersion", "5.0.13");
 
             modelBuilder.Entity("Domain.Models.ServiceRegisterEntity", b =>
                 {
@@ -25,40 +23,39 @@ namespace IdentityDbContext.Migrations
                         .ValueGeneratedOnAdd()
                         .HasMaxLength(50)
                         .HasColumnType("int")
-                        .HasColumnName("id")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnName("id");
 
                     b.Property<string>("ClientId")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)")
+                        .HasColumnType("varchar(50)")
                         .HasColumnName("clientid");
 
                     b.Property<DateTime>("CreateTime")
-                        .HasColumnType("datetime2")
+                        .HasColumnType("datetime(6)")
                         .HasColumnName("create_time");
 
                     b.Property<string>("Creator")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)")
+                        .HasColumnType("longtext")
                         .HasColumnName("creator");
 
                     b.Property<bool>("IsDelete")
-                        .HasColumnType("bit")
+                        .HasColumnType("tinyint(1)")
                         .HasColumnName("is_delete");
 
                     b.Property<string>("Secret")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)")
+                        .HasColumnType("longtext")
                         .HasColumnName("secret");
 
                     b.Property<string>("ServiceName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)")
+                        .HasColumnType("longtext")
                         .HasColumnName("service_name");
 
                     b.Property<DateTime>("UpdateTime")
-                        .HasColumnType("datetime2")
+                        .HasColumnType("datetime(6)")
                         .HasColumnName("update_time");
 
                     b.HasKey("Id");

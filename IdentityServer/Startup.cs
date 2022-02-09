@@ -39,7 +39,7 @@ namespace IdentityServer
             services.AddControllers();
             services.AddAuthentication_Ids4Setup();
             services.AddSingleton(new Appsettings(Configuration));
-            services.AddDbContext<EntityFrameWorkIdentityDbcontext>(options => options.UseSqlServer(Configuration.GetConnectionString("Sqlserver")));
+            services.AddDbContext<EntityFrameWorkIdentityDbcontext>(options => options.UseMySql(Configuration.GetConnectionString("Mysql"), new MySqlServerVersion(new Version(8, 0, 28))));
             services.AddScoped<DbContext, EntityFrameWorkIdentityDbcontext>();
         }
 

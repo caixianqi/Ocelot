@@ -35,7 +35,18 @@ namespace IdentityDbContext
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            
+            SeedData(modelBuilder);
+        }
+
+        /// <summary>
+        /// 初始化插入数据种子
+        /// </summary>
+        private void SeedData(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<ServiceRegisterEntity>().HasData(new ServiceRegisterEntity
+            {
+                
+            });
         }
     }
 }

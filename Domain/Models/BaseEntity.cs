@@ -45,11 +45,11 @@ namespace Domain.Models
         /// <summary>
         /// 更新时间
         /// </summary>
-        public DateTime UpdateTime { get; set; }
+        public DateTime UpdateTime { get; set; } = DateTime.Now;
 
         [Required]
         /// <summary>
-        /// 是否删除 默认为否
+        /// 是否删除 默认为否（软删除）
         /// </summary>
         [Column("is_delete")]
         /// <summary>
