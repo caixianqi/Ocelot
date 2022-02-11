@@ -17,6 +17,7 @@
 //----------------------------------------------------------------*/
 
 using Domain.Models;
+using Extensions.ServiceConfigures.AppSettings;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
