@@ -17,10 +17,13 @@
 //----------------------------------------------------------------*/
 
 using Domain.Models;
+using Domain.Models.User;
+using Extensions.Helper;
 using Extensions.ServiceConfigures.AppSettings;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace IdentityDbContext
@@ -34,9 +37,33 @@ namespace IdentityDbContext
 
         public DbSet<ServiceRegisterEntity> serviceRegisterEntities { get; set; }
 
+        public DbSet<UserEntity> userEntities { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            SeedData(modelBuilder);
+            modelBuilder.ApplyConfiguration(new EntityConfiguration<UserEntity>());
+            var SeedDBDataEnabled=Appsettings.app(new string[] { "AppSettings", "SeedDBDataEnabled" }).ObjToBool();
+            if(SeedDBDataEnabled) SeedData(modelBuilder);
+        }
+
+        /// <summary>
+        /// 保存操作预处理
+        /// </summary>
+        /// <returns></returns>
+        public override int SaveChanges()
+        {
+            //自动修改 CreateTime,UpdateTime
+            var entityEntries = ChangeTracker.Entries().ToList();
+            foreach (var entry in entityEntries)
+            {
+                if (entry.State == EntityState.Added)
+                    Entry(entry.Entity).Property(nameof(UserEntity.CreateTime)).CurrentValue = DateTime.Now;
+
+                if (entry.State == EntityState.Modified)
+                    Entry(entry.Entity).Property(nameof(UserEntity.UpdateTime)).CurrentValue = DateTime.Now;
+            }
+
+            return base.SaveChanges();
         }
 
         /// <summary>
@@ -44,10 +71,14 @@ namespace IdentityDbContext
         /// </summary>
         private void SeedData(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<ServiceRegisterEntity>().HasData(new ServiceRegisterEntity
+            modelBuilder.Entity<UserEntity>().HasData(new UserEntity
             {
-                
-            });
+
+                Password = "123",
+                UserName = "123",
+                CreateTime = DateTime.Now,
+                UpdateTime=DateTime.Now
+            }); ;
         }
     }
 }

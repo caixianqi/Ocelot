@@ -1,4 +1,5 @@
 ﻿using Domain.Models;
+using Domain.Models.User;
 using Extensions.Helper;
 using Extensions.ServiceConfigures.AppSettings;
 using IdentityDbContext;
@@ -18,10 +19,10 @@ namespace IdentityServer
 {
     public class ResourceOwnerPasswordValidator:IResourceOwnerPasswordValidator
     {
-        private readonly IRepository<int, ServiceRegisterEntity> _repository;
+        private readonly IRepository<int, UserEntity> _repository;
         private readonly IUnitOfWork _unitOfWork;
 
-        public ResourceOwnerPasswordValidator(IRepository<int, ServiceRegisterEntity> repository,IUnitOfWork unitOfWork)
+        public ResourceOwnerPasswordValidator(IRepository<int, UserEntity> repository,IUnitOfWork unitOfWork)
         {
             _repository = repository;
             _unitOfWork = unitOfWork;
@@ -31,17 +32,21 @@ namespace IdentityServer
         {
             
             _unitOfWork.BeginTran();
-            ServiceRegisterEntity serviceRegisterEntity = new ServiceRegisterEntity() {
-                ClientId = "client1",
-                Secret = "secret",
-                ServiceName="Api2",
-                CreateTime=DateTime.Now,
-                UpdateTime=DateTime.Now,
-                IsDelete=false,
-                Creator="caixianqi"
-            };
-            _repository.Insert(serviceRegisterEntity);
+            //ServiceRegisterEntity serviceRegisterEntity = new ServiceRegisterEntity() {
+            //    ClientId = "client1",
+            //    Secret = "secret",
+            //    ServiceName="Api2",
+            //    CreateTime=DateTime.Now,
+            //    UpdateTime=DateTime.Now,
+            //    IsDelete=false,
+            //    Creator="caixianqi"
+            //};
+            //_repository.Insert(serviceRegisterEntity);
             //_repository.Insert(serviceRegisterEntity1);
+            UserEntity userEntity = new UserEntity()
+            {
+                Password="123"
+            };
             _unitOfWork.CommitTran();
             //根据context.UserName和context.Password与数据库的数据做校验，判断是否合法
             if (context.UserName == "wjk" && context.Password == "123")

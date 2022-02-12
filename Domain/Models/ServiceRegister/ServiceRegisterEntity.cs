@@ -27,7 +27,7 @@ namespace Domain.Models
 {
     [Table("serviceregister")]
     [Description("服务发现实体")]
-    public class ServiceRegisterEntity : BaseEntity<int>
+    public class ServiceRegisterEntity : BaseUserEntity<int>
     {
         [Required]
         [StringLength(50)]

@@ -10,8 +10,12 @@ namespace Domain.Models.User
 {
     [Table("user")]
     [Description("用户")]
-    public class UserEntity:BaseEntity<Guid>
+    public class UserEntity : BaseEntity<string>
     {
+        public UserEntity()
+        {
+            base.Id = Guid.NewGuid().ToString();
+        }
         /// <summary>
         /// 用户名
         /// </summary>
@@ -33,7 +37,7 @@ namespace Domain.Models.User
         [Column("password")]
         [Required]
         [Description("密码")]
-        private string EncryptPassword => MD5Helper.GenerateMD5(Password);
+        private string EncryptPassword { get { return MD5Helper.GenerateMD5(Password); }set { } }
 
 
     }

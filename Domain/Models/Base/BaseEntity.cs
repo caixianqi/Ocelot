@@ -16,6 +16,7 @@
 *******************************************************************
 //----------------------------------------------------------------*/
 
+using Domain.Models.User;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -24,28 +25,21 @@ using System.Text;
 
 namespace Domain.Models
 {
-    public class BaseEntity<T>
+    public class Entity
     {
-        /// <summary>
-        /// 数据唯一ID
-        /// </summary>
-        [Required]
-        [Column("id")]
-        [StringLength(50)]
-        [Key]
-        public T Id { get; set; }
 
         [Column("create_time")]
         /// <summary>
         /// 创建时间
         /// </summary>
-        public DateTime CreateTime { get; set; }
+        
+        public DateTime CreateTime { get; set; } 
 
         [Column("update_time")]
         /// <summary>
         /// 更新时间
         /// </summary>
-        public DateTime UpdateTime { get; set; } = DateTime.Now;
+        public DateTime UpdateTime { get; set; } 
 
         [Required]
         /// <summary>
@@ -57,11 +51,17 @@ namespace Domain.Models
         /// </summary>
         public bool IsDelete { get; set; } = false;
 
-        [Required]
-        [Column("creator")]
+    }
+
+    public class BaseEntity<T> : Entity
+    {
         /// <summary>
-        /// 创建人
+        /// 数据唯一ID
         /// </summary>
-        public string Creator { get; set; }
+        [Required]
+        [Column("id")]
+        [StringLength(50)]
+        [Key]
+        public T Id { get; set; }
     }
 }
