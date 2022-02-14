@@ -7,7 +7,7 @@
 * 命名空间 ：IdentityDbContext
 * 机器名称 ：PC-20210617KGT4
 * CLR 版本 ：4.0.30319.42000
-* 作 者 ：Administrator
+* 作 者 ：蔡显麒
 * 创建时间 ：2022/1/28 9:48:22
 * 更新时间 ：2022/1/28 9:48:22
 * 版 本 号 ：v1.0.0.0
@@ -57,10 +57,10 @@ namespace IdentityDbContext
             foreach (var entry in entityEntries)
             {
                 if (entry.State == EntityState.Added)
-                    Entry(entry.Entity).Property(nameof(UserEntity.CreateTime)).CurrentValue = DateTime.Now;
+                    Entry(entry.Entity).Property("CreateTime").CurrentValue = DateTime.Now;
 
                 if (entry.State == EntityState.Modified)
-                    Entry(entry.Entity).Property(nameof(UserEntity.UpdateTime)).CurrentValue = DateTime.Now;
+                    Entry(entry.Entity).Property("UpdateTime").CurrentValue = DateTime.Now;
             }
 
             return base.SaveChanges();

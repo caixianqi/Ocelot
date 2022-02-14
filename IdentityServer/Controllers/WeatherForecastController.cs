@@ -22,7 +22,6 @@ namespace IdentityServer.Controllers
         public WeatherForecastController(ILogger<WeatherForecastController> logger)
         {
             _logger = logger;
-            _repository = repository;
         }
 
         [HttpGet]

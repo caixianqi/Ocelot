@@ -25,8 +25,17 @@ using System.Text;
 
 namespace Domain.Models
 {
-    public class Entity
+    public class BaseEntity<T>
     {
+
+        /// <summary>
+        /// 数据唯一ID
+        /// </summary>
+        [Required]
+        [Column("id")]
+        [StringLength(50)]
+        [Key]
+        public T Id { get; set; }
 
         [Column("create_time")]
         /// <summary>
@@ -53,15 +62,4 @@ namespace Domain.Models
 
     }
 
-    public class BaseEntity<T> : Entity
-    {
-        /// <summary>
-        /// 数据唯一ID
-        /// </summary>
-        [Required]
-        [Column("id")]
-        [StringLength(50)]
-        [Key]
-        public T Id { get; set; }
-    }
 }
