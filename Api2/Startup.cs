@@ -47,7 +47,7 @@ namespace Api2
             }
 
             app.UseRouting();
-
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
@@ -55,7 +55,7 @@ namespace Api2
                 endpoints.MapControllers();
             });
             app.ServiceRegister(applicationLifetime, Configuration);
-            app.UseAuthentication();
+            
         }
     }
 }

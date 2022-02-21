@@ -53,12 +53,12 @@ namespace Extensions.ServiceConfigures.Authentication.IdentityServer4
         // scopes define the API resources in your system
         public static IEnumerable<ApiResource> GetApiResources()
         {
-            return apiResources;
-           // return new List<ApiResource>
-           //{
-           //   new ApiResource("Api1", "My API1"),
-           //   new ApiResource("Api2", "My API2")
-           //};
+            //return apiResources;
+            return new List<ApiResource>
+           {
+              new ApiResource("Api1", "My API1"){ Scopes=new string[]{"Api1" } },
+              new ApiResource("Api2", "My API2"){ Scopes=new string[]{"Api2" } }
+           };
         }
 
         public static IEnumerable<ApiScope> ApiScopes =>
@@ -85,18 +85,18 @@ namespace Extensions.ServiceConfigures.Authentication.IdentityServer4
                },
  
                // resource owner password grant client
-               new Client
-               {
-                   ClientId = "client2",
-                   AllowedGrantTypes = GrantTypes.ResourceOwnerPassword,
+               //new Client
+               //{
+               //    ClientId = "client2",
+               //    AllowedGrantTypes = GrantTypes.ResourceOwnerPassword,
 
-                   ClientSecrets =
-                   {
-                       new Secret("secret".Sha256())
-                   },
-                   AllowedScopes = { "Api2",IdentityServerConstants.StandardScopes.OpenId, //必须要添加，否则报forbidden错误
-                 IdentityServerConstants.StandardScopes.Profile }
-               }
+               //    ClientSecrets =
+               //    {
+               //        new Secret("secret".Sha256())
+               //    },
+               //    AllowedScopes = { "Api2",IdentityServerConstants.StandardScopes.OpenId, //必须要添加，否则报forbidden错误
+               //  IdentityServerConstants.StandardScopes.Profile }
+               //}
            };
         }
     }

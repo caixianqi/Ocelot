@@ -17,6 +17,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Ocelot.DependencyInjection;
+using Ocelot.Middleware;
 using Repository.Base;
 using Repository.UnitOfWork;
 using System;
@@ -40,6 +42,7 @@ namespace IdentityServer
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddOcelot((new ConfigurationBuilder().AddJsonFile("ocelot.json", true, true).Build()));
             services.AddSingleton(new IdentityserverConfig(Configuration));
             services.AddAuthentication_Ids4Setup();
             services.AddSingleton(new Appsettings(Configuration));
@@ -65,6 +68,7 @@ namespace IdentityServer
                 endpoints.MapControllers();
             });
             app.ServiceRegister(applicationLifetime, Configuration);
+            app.UseOcelot();
         }
 
         public void ConfigureContainer(ContainerBuilder containerBuilder)
