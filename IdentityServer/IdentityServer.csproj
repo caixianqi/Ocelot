@@ -20,6 +20,8 @@
     </PackageReference>
     <PackageReference Include="MySql.EntityFrameworkCore" Version="5.0.10" />
     <PackageReference Include="Ocelot" Version="14.1.0" />
+    <PackageReference Include="Ocelot.Cache.CacheManager" Version="14.1.0" />
+    <PackageReference Include="Ocelot.Provider.Polly" Version="14.1.0" />
   </ItemGroup>
 
   <ItemGroup>

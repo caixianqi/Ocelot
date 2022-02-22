@@ -42,7 +42,7 @@ namespace Extensions.ServiceConfigures.Authentication.IdentityServer4
             apiResources = (ApiResource[])configuration.GetSection("ApiResource").Get(typeof(ApiResource[]));
         }
         public static IEnumerable<IdentityResource> GetIdentityResourceResources()
-        {           
+        {
             return new List<IdentityResource>
            {
                new IdentityResources.OpenId(), //必须要添加，否则报无效的scope错误
@@ -62,7 +62,7 @@ namespace Extensions.ServiceConfigures.Authentication.IdentityServer4
         }
 
         public static IEnumerable<ApiScope> ApiScopes =>
-           new ApiScope[] { new ApiScope("Api1"),new ApiScope("Api2") };
+           new ApiScope[] { new ApiScope("Api1"), new ApiScope("Api2") };
 
         // clients want to access resources (aka scopes)
         public static IEnumerable<Client> GetClients()
@@ -79,8 +79,8 @@ namespace Extensions.ServiceConfigures.Authentication.IdentityServer4
                    {
                        new Secret("secret".Sha256())
                    },
-                   AllowedScopes = { "Api1",IdentityServerConstants.StandardScopes.OpenId, //必须要添加，否则报forbidden错误
-                 IdentityServerConstants.StandardScopes.Profile},
+                   AllowedScopes =new string[]{"Api1","Api2",IdentityServerConstants.StandardScopes.OpenId, //必须要添加，否则报forbidden错误
+                 IdentityServerConstants.StandardScopes.Profile },
 
                },
  

@@ -19,6 +19,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Ocelot.DependencyInjection;
 using Ocelot.Middleware;
+using Ocelot.Provider.Polly;
 using Repository.Base;
 using Repository.UnitOfWork;
 using System;
@@ -42,7 +43,7 @@ namespace IdentityServer
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            services.AddOcelot((new ConfigurationBuilder().AddJsonFile("ocelot.json", true, true).Build()));
+            services.AddOcelot((new ConfigurationBuilder().AddJsonFile("ocelot.json", true, true).Build())).AddPolly();
             services.AddSingleton(new IdentityserverConfig(Configuration));
             services.AddAuthentication_Ids4Setup();
             services.AddSingleton(new Appsettings(Configuration));
