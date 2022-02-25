@@ -26,6 +26,7 @@ using Repository.Base;
 using Repository.UnitOfWork;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
@@ -57,11 +58,30 @@ namespace IdentityServer
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IHostApplicationLifetime applicationLifetime, EntityFrameWorkIdentityDbcontext dbcontext)
         {
+            app.Use(async (context, next) =>
+            {
+                var cultureQuery = context.Request.Query["culture"];
+                if (!string.IsNullOrWhiteSpace(cultureQuery))
+                {
+                    var culture = new CultureInfo(cultureQuery);
+
+                    CultureInfo.CurrentCulture = culture;
+                    CultureInfo.CurrentUICulture = culture;
+                }
+                await next.Invoke();
+                // Call the next delegate/middleware in the pipeline
+                
+            });
+
+            app.Run(async (context) =>
+            {
+                await context.Response.WriteAsync(
+                    $"Hello {CultureInfo.CurrentCulture.DisplayName}");
+            });
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
-
             app.UseIdentityServer();
             app.UseRouting();
 

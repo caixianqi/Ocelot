@@ -1,7 +1,9 @@
 
+using Api1Server;
 using Extensions.Middlewares;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -9,6 +11,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -38,8 +41,13 @@ namespace Api1
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env,IHostApplicationLifetime applicationLifetime)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IHostApplicationLifetime applicationLifetime)
         {
+            app.UseRequestCulture();
+            app.Use(next =>
+            {
+                return
+            });
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -53,7 +61,25 @@ namespace Api1
             {
                 endpoints.MapControllers();
             });
-            app.ServiceRegister(applicationLifetime, Configuration);
+            //app.ServiceRegister(applicationLifetime, Configuration);
         }
+
+        public delegate Task OcelotRequestDelegate(DownstreamContext downstreamContext);
+
+        OcelotRequestDelegate ocelotRequest = (context) => {
+            return Task.CompletedTask;
+
+        };
+
+        Func<OcelotRequestDelegate, OcelotRequestDelegate> Celo  ;
+
+        
+
+        public  OcelotRequestDelegate getdads(OcelotRequestDelegate ocelotRequest)
+        {
+            return ocelotRequest;
+        }
+
+        Celo=getdads
     }
 }
