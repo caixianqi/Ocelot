@@ -22,7 +22,7 @@ using System.Text;
 
 namespace Ocelot.Middleware.Pipeline
 {
-    interface IOcelotPipelineBuilder
+    public interface IOcelotPipelineBuilder
     {
 
     }
