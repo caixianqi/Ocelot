@@ -18,6 +18,7 @@
 
 using Microsoft.AspNetCore.Http;
 using Ocelot.DowntreamRouteFinder.UrlMatcher;
+using Ocelot.Errors;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -35,6 +36,10 @@ namespace Ocelot.Middleware
 
         public HttpContext HttpContext { get; }
 
-        public List<Error.Error> Errors { get; }
+        public List<Error> Errors { get; }
+
+        public bool IsError => Errors.Count > 0;
+
+        public DownstreamRequest DownstreamRequest { get; set; }
     }
 }

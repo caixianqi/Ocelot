@@ -20,7 +20,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Ocelot.Error
+namespace Ocelot.Errors
 {
     public enum OcelotErrorCode
     {
