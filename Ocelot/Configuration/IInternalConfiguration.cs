@@ -1,41 +1,45 @@
 ﻿/*----------------------------------------------------------------
 * 项目名称 ：Ocelot.Configuration
 * 项目描述 ：
-* 类 名 称 ：LoadBalancerOptions
+* 类 名 称 ：IInternalConfiguration
 * 类 描 述 ：
 * 所在的域 ：PC-20210617KGT4
 * 命名空间 ：Ocelot.Configuration
 * 机器名称 ：PC-20210617KGT4
 * CLR 版本 ：4.0.30319.42000
 * 作 者 ：蔡显麒
-* 创建时间 ：2022/2/28 10:48:13
-* 更新时间 ：2022/2/28 10:48:13
+* 创建时间 ：2022/2/28 14:20:41
+* 更新时间 ：2022/2/28 14:20:41
 * 版 本 号 ：v1.0.0.0
 *******************************************************************
 * Copyright @ Administrator 2022. All rights reserved.
 *******************************************************************
 //----------------------------------------------------------------*/
 
-using Ocelot.LoadBalancer.LoadBalancers;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace Ocelot.Configuration
 {
-    public class LoadBalancerOptions
+    public interface IInternalConfiguration
     {
-        public LoadBalancerOptions(string type, string key, int expiryInMs)
-        {
-            Type = string.IsNullOrWhiteSpace(type) ? nameof(NoLoadBalancer) : type;
-            Key = key;
-            ExpiryInMs = expiryInMs;
-        }
+        List<ReRoute> ReRoutes { get; }
 
-        public string Type { get; }
+        string AdministrationPath { get; }
 
-        public string Key { get; }
+        ServiceProviderConfiguration ServiceProviderConfiguration { get; }
 
-        public int ExpiryInMs { get; }
+        string RequestId { get; }
+
+        LoadBalancerOptions LoadBalancerOptions { get; }
+
+        string DownstreamScheme { get; }
+
+        QoSOptions QoSOptions { get; }
+
+        HttpHandlerOptions HttpHandlerOptions { get; }
+
+        Version DownstreamHttpVersion { get; }
     }
 }

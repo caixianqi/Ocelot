@@ -44,10 +44,6 @@ namespace Api1
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IHostApplicationLifetime applicationLifetime)
         {
             app.UseRequestCulture();
-            app.Use(next =>
-            {
-                return
-            });
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
