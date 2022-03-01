@@ -1,28 +1,9 @@
-﻿/*----------------------------------------------------------------
-* 项目名称 ：Ocelot.Middleware
-* 项目描述 ：
-* 类 名 称 ：DownstreamContext
-* 类 描 述 ：
-* 所在的域 ：PC-20210617KGT4
-* 命名空间 ：Ocelot.Middleware
-* 机器名称 ：PC-20210617KGT4
-* CLR 版本 ：4.0.30319.42000
-* 作 者 ：蔡显麒
-* 创建时间 ：2022/2/25 16:51:00
-* 更新时间 ：2022/2/25 16:51:00
-* 版 本 号 ：v1.0.0.0
-*******************************************************************
-* Copyright @ Administrator 2022. All rights reserved.
-*******************************************************************
-//----------------------------------------------------------------*/
-
 using Microsoft.AspNetCore.Http;
 using Ocelot.Configuration;
-using Ocelot.DowntreamRouteFinder.UrlMatcher;
+using Ocelot.DownstreamRouteFinder.UrlMatcher;
 using Ocelot.Errors;
-using System;
+using Ocelot.Request.Middleware;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Ocelot.Middleware
 {
@@ -31,20 +12,23 @@ namespace Ocelot.Middleware
         public DownstreamContext(HttpContext httpContext)
         {
             HttpContext = httpContext;
+            Errors = new List<Error>();
         }
 
         public List<PlaceholderNameAndValue> TemplatePlaceholderNameAndValues { get; set; }
 
         public HttpContext HttpContext { get; }
 
-        public List<Error> Errors { get; }
-
-        public bool IsError => Errors.Count > 0;
+        public DownstreamReRoute DownstreamReRoute { get; set; }
 
         public DownstreamRequest DownstreamRequest { get; set; }
 
+        public DownstreamResponse DownstreamResponse { get; set; }
+
+        public List<Error> Errors { get; }
+
         public IInternalConfiguration Configuration { get; set; }
 
-        public DownstreamReRoute DownstreamReRoute { get; set; }
+        public bool IsError => Errors.Count > 0;
     }
 }

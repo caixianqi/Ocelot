@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Ocelot.Infrastructure.Extensions;
+using System.Collections.Generic;
 using System.Text;
 
 namespace Ocelot.Configuration.File
