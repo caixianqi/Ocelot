@@ -32,6 +32,7 @@ namespace IdentityServer
         {
             
             _unitOfWork.BeginTran();
+            var test=_repository.FirstOrDefault(1);
             //ServiceRegisterEntity serviceRegisterEntity = new ServiceRegisterEntity() {
             //    ClientId = "client1",
             //    Secret = "secret",

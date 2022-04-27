@@ -19,15 +19,18 @@ namespace IdentityServer.Controllers
         };
 
         private readonly ILogger<WeatherForecastController> _logger;
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
+        private readonly IRepository<int, UserEntity> _repository;
+        public WeatherForecastController(ILogger<WeatherForecastController> logger, IRepository<int, UserEntity> repository)
         {
             _logger = logger;
+            _repository = repository;
         }
 
         [HttpGet]
         public IEnumerable<WeatherForecast> Get()
         {
-            
+            var test = _repository.FirstOrDefault(1);
+            test.UserName = "12312321";
             var rng = new Random();
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast
             {
@@ -36,6 +39,9 @@ namespace IdentityServer.Controllers
                 Summary = Summaries[rng.Next(Summaries.Length)]
             })
             .ToArray();
+
         }
     }
+
+
 }

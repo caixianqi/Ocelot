@@ -31,9 +31,12 @@ namespace Repository.Base
          where TEntity : class
     {
         private readonly DbContext _dbContext;
+        private readonly DbSet<TEntity> _deSet;
+
         public RepositoryBase(IUnitOfWork unitOfWork)
         {
             _dbContext = unitOfWork.GetDbContext();
+            _deSet = _dbContext.Set<TEntity>();
         }
 
         public int Count()
@@ -88,7 +91,7 @@ namespace Repository.Base
 
         public TEntity FirstOrDefault(TPrimaryKey id)
         {
-            throw new NotImplementedException();
+           return _dbContext.Set<TEntity>().FirstOrDefault();
         }
 
         public TEntity FirstOrDefault(Expression<Func<TEntity, bool>> predicate)
@@ -118,6 +121,11 @@ namespace Repository.Base
 
         public IQueryable<TEntity> GetAllIncluding(params Expression<Func<TEntity, object>>[] propertySelectors)
         {
+            foreach (var propertySelector in propertySelectors)
+            {
+                _dbContext.Set<TEntity>().Include(propertySelector);
+            }
+                
             throw new NotImplementedException();
         }
 

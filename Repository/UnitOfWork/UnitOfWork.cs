@@ -16,6 +16,7 @@
 *******************************************************************
 //----------------------------------------------------------------*/
 
+using IdentityDbContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using System;
@@ -28,7 +29,7 @@ namespace Repository.UnitOfWork
     {
         private readonly DbContext _dbContext;
         private readonly ILogger _logger;
-        public UnitOfWork(DbContext dbContext,ILogger<UnitOfWork> logger)
+        public UnitOfWork(EntityFrameWorkIdentityDbcontext dbContext,ILogger<UnitOfWork> logger)
         {
             _dbContext = dbContext;
             _logger = logger;
